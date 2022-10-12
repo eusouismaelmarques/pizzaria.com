@@ -179,6 +179,7 @@ function udateCart(){
 
     }else{
         document.querySelector('aside').classList.remove('show')
+        document.querySelector('aside').style.left = "100vw"
     }
 }
 
