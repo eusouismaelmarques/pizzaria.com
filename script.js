@@ -107,10 +107,21 @@ function udateCart(){
     if(cart.length > 0){
         document.querySelector('aside').classList.add('show')
         c('.cart').innerHTML=""
+
+            let subtotal = 0;
+            let desconto =0;
+            let total = 0;
+            let teleEntrega = 5;
+
+
         for(let i in cart){
             let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
             let cartItem = document.querySelector('.models .cart--item').cloneNode(true)
             let pizzaSizeName;
+            
+            subtotal += pizzaItem.price * cart[i].qt
+
+
             switch(cart[i].sizePizza) {
                 case 0:
                     pizzaSizeName ='P';
@@ -144,6 +155,16 @@ function udateCart(){
             })
             document.querySelector('.cart').append(cartItem)
         }
+
+        //desconto = subtotal * 0.1;
+        
+        total = subtotal +teleEntrega
+
+        document.querySelector('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
+        document.querySelector('.teleEntrega span:last-child').innerHTML = `R$ ${teleEntrega.toFixed(2)}`;
+        document.querySelector('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
+
+
     }else{
         document.querySelector('aside').classList.remove('show')
     }
