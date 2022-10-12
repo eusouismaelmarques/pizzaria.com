@@ -103,8 +103,19 @@ document.querySelector('.pizzaInfo--addButton').addEventListener('click', ()=>{
         fecharModal()
 })
 
+document.querySelector('.menu-openner').addEventListener('click', ()=>{
+    document.querySelector('aside').style.left = "0"
+})
+document.querySelector('.menu-closer').addEventListener('click', ()=>{
+    document.querySelector('aside').style.left = "100vw"
+})
+
 function udateCart(){
+
+    document.querySelector('.menu-openner span').innerHTML= cart.length;
     if(cart.length > 0){
+
+
         document.querySelector('aside').classList.add('show')
         c('.cart').innerHTML=""
 
@@ -156,13 +167,14 @@ function udateCart(){
             document.querySelector('.cart').append(cartItem)
         }
 
-        //desconto = subtotal * 0.1;
+        desconto = subtotal * 0.1;
         
-        total = subtotal +teleEntrega
+        total = subtotal + teleEntrega - desconto
 
         document.querySelector('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
         document.querySelector('.teleEntrega span:last-child').innerHTML = `R$ ${teleEntrega.toFixed(2)}`;
         document.querySelector('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
+        document.querySelector('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
 
 
     }else{

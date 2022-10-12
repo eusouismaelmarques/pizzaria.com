@@ -364,6 +364,9 @@ h1 {
         bottom:0;
         transition: all ease .2s;
     }
+    .menu-closer,.menu-openner{
+        cursor: pointer;
+    }
     aside.show {
         width:auto;
     }
