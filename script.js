@@ -115,7 +115,7 @@ document.querySelector('.menu-closer').addEventListener('click', ()=>{
 
 function udateCart(){
 
-    document.querySelector('.menu-openner span').innerHTML= cart.length;
+    
     if(cart.length > 0){
 
 
@@ -133,8 +133,16 @@ function udateCart(){
             let cartItem = document.querySelector('.models .cart--item').cloneNode(true)
             let pizzaSizeName;
             
-            subtotal += pizzaItem.price * cart[i].qt
+        // Soma Preço mais itens
+            subtotal += pizzaItem.price * cart[i].qt;
+        // Total de itens no carrinho
+            var ItensNoCarrinho = cart.reduce((a,b)=> a + b.qt,0)
+            document.querySelector('.menu-openner span').innerHTML= ItensNoCarrinho;
 
+
+
+
+            var ItensNoCarrinho = cart.reduce((a,b)=> a + b.qt,0)
 
             switch(cart[i].sizePizza) {
                 case 0:
@@ -150,11 +158,15 @@ function udateCart(){
                     break; 
             }
 
+        // Display do carrinho
+            // Nome + tamanho
             let pizzaName = `${pizzaItem.name} (${pizzaSizeName})` 
             cartItem.querySelector('img').src = pizzaItem.img;
             cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
             cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
 
+
+        // Evento para adicionar ou remover no carrinho        
             cartItem.querySelector('.cart--item-qtmenos').addEventListener('click', ()=>{
                 if(cart[i].qt > 1){
                     cart[i].qt--
@@ -167,22 +179,27 @@ function udateCart(){
                 cart[i].qt++;
                 udateCart()
             })
+
+        // Adicionar um a baixo do outro no carrinho
             document.querySelector('.cart').append(cartItem)
+
         }
 
         desconto = subtotal * 0.1;
-        
-        total = subtotal + teleEntrega - desconto
+        DesSub = subtotal - desconto;
+        total = subtotal + teleEntrega
 
         document.querySelector('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
         document.querySelector('.teleEntrega span:last-child').innerHTML = `R$ ${teleEntrega.toFixed(2)}`;
         document.querySelector('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
-        document.querySelector('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
-
+        //document.querySelector('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
+        
 
     }else{
         document.querySelector('aside').classList.remove('show')
         document.querySelector('aside').style.left = "100vw"
     }
 }
+
+
 
